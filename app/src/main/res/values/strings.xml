@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">CargaApp</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellido">Apellidos</string>
+    <string name="id">Número de identificación</string>
+    <string name="fecha">Fecha de nacimiento</string>
+    <string name="celular">Número telefónico</string>
+    <string name="rol">Rol</string>
+
+    <string-array name="roles">
+        <item>Propietario de carga</item>
+        <item>Propietario de camion</item>
+        <item>Conductor de camion</item>
+    </string-array>
+</resources>
