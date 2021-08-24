@@ -28,7 +28,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase baseDatos, int oldVersion, int newVersion) {
         baseDatos.execSQL("DROP TABLE IF EXISTS '" + "propietario_de_camion"+ "'");
         baseDatos.execSQL("DROP TABLE IF EXISTS '" + "propietario_de_carga"+ "'");
-        baseDatos.execSQL("DROP TABLE IF EXISTS '" + "propietario_de_carga"+ "'");
+        baseDatos.execSQL("DROP TABLE IF EXISTS '" + "conductor_de_camion"+ "'");
         onCreate(baseDatos);
     }
 }

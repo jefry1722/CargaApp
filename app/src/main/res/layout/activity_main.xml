@@ -1,20 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:src="@mipmap/user"/>
+
+    <EditText
+        android:id="@+id/User"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:hint="Usuario"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/Pass"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:hint="Contraseña"
+        android:inputType="textPassword"/>
+
     <Button
-        android:id="@+id/button"
-        android:layout_width="232dp"
-        android:layout_height="45dp"
+        android:id="@+id/btnIngresar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:background="#FF0000"
+        android:text="Ingresar"
+        android:textColor="#ffffff"
+        android:textSize="30dp"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/btnRegistrar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:onClick="onButton"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:background="#0000ff"
         android:text="Registrar usuario"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:textColor="#ffffff"
+        android:textSize="30dp"
+        android:textStyle="bold"/>
+</LinearLayout>
