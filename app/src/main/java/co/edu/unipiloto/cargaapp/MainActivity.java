@@ -68,13 +68,17 @@ public class MainActivity extends AppCompatActivity {
         Cursor cursor=baseDatos.rawQuery("SELECT id,nombres,password FROM "+rol+" WHERE id=" + id,null);
 
         if(cursor.getCount()==0){
+            cursor.close();
             return "";
         }else{
             String passwdStr;
             while(cursor.moveToNext()){
                 passwdStr=cursor.getString(2);
                 if(passwdStr.equals(passwd)){
-                    return cursor.getString(1);
+                    String nombreCursor= cursor.getString(1);
+                    cursor.close();
+                    return nombreCursor;
+
                 }
             }
             cursor.close();

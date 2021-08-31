@@ -3,7 +3,9 @@ package co.edu.unipiloto.cargaapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +15,7 @@ import android.widget.Toast;
 
 public class Registro extends AppCompatActivity {
 
-    private EditText et_nombre, et_apellido, et_id, et_fecha, et_numero;
+    private EditText et_nombre, et_apellido, et_id, et_fecha, et_numero, et_passwd;
     private Spinner et_rol;
 
     @Override
@@ -28,6 +30,7 @@ public class Registro extends AppCompatActivity {
         et_fecha = (EditText)findViewById(R.id.fecha);
         et_numero = (EditText)findViewById(R.id.celular);
         et_rol = (Spinner) findViewById(R.id.rol);
+        et_passwd=(EditText)findViewById(R.id.passwd);
     }
 
     public void registrarUsuario(View view) {
@@ -48,28 +51,57 @@ public class Registro extends AppCompatActivity {
         String id = et_id.getText().toString();
         String fecha = et_fecha.getText().toString();
         String numero = et_numero.getText().toString();
+        String password=et_passwd.getText().toString();
 
 
-        if (!nombre.isEmpty() && !apellido.isEmpty() && !id.isEmpty() && !fecha.isEmpty() && !numero.isEmpty()){
+        if (!nombre.isEmpty() && !apellido.isEmpty() && !id.isEmpty() && !fecha.isEmpty() && !numero.isEmpty() && !password.isEmpty()){
             ContentValues registro = new ContentValues();
             registro.put("nombres", nombre);
             registro.put("apellidos", apellido);
             registro.put("id", id);
             registro.put("fecha_nacimiento", fecha);
             registro.put("celular", numero);
+            registro.put("password",password);
 
-            baseDatos.insert(nombre_tabla, null, registro);
-            baseDatos.close();
-            et_nombre.setText("");
-            et_apellido.setText("");
-            et_id.setText("");
-            et_fecha.setText("");
-            et_numero.setText("");
+            String consulta=getUsuario(getApplicationContext().openOrCreateDatabase("administracion", Context.MODE_PRIVATE,null),id,password,nombre_tabla);
+            if(id.equals(consulta)){
+                Toast.makeText(this, "Usuario ya existente", Toast.LENGTH_SHORT).show();
+                consulta="";
+            }else{
+                baseDatos.insert(nombre_tabla, null, registro);
+                baseDatos.close();
+                et_nombre.setText("");
+                et_apellido.setText("");
+                et_id.setText("");
+                et_fecha.setText("");
+                et_numero.setText("");
+                et_passwd.setText("");
 
-            Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
+                consulta="";
+            }
+
+
         }
         else {
             Toast.makeText(this, "Debes llenar todos los campos", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private String getUsuario(SQLiteDatabase baseDatos,String id,String passwd, String rol){
+        Cursor cursor=baseDatos.rawQuery("SELECT id FROM "+rol+" WHERE id=" + id,null);
+
+        if(cursor.getCount()==0){
+            cursor.close();
+            return "";
+        }else{
+            while(cursor.moveToNext()){
+                    String idCursor= cursor.getString(0);
+                    cursor.close();
+                    return idCursor;
+            }
+            cursor.close();
+            return "Ya existe";
         }
     }
 }

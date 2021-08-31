@@ -1,59 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:src="@mipmap/user"/>
+        android:id="@+id/imageView"
+        android:layout_width="128dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="23dp"
+        app:layout_constraintBottom_toTopOf="@+id/idMain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/user" />
 
     <EditText
-        android:id="@+id/User"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp"
-        android:layout_weight="1"
-        android:hint="Usuario"
-        android:inputType="text"/>
+        android:id="@+id/idMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
+        android:ems="10"
+        android:hint="Identificación"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/passMain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
-        android:id="@+id/Pass"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp"
-        android:layout_weight="1"
+        android:id="@+id/passMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="19dp"
+        android:ems="10"
         android:hint="Contraseña"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerRol"
+        app:layout_constraintStart_toStartOf="@+id/idMain"
+        app:layout_constraintTop_toBottomOf="@+id/idMain" />
+
+    <Spinner
+        android:id="@+id/spinnerRol"
+        android:layout_width="301dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="53dp"
+        android:layout_marginEnd="53dp"
+        android:layout_marginBottom="24dp"
+        android:entries="@array/roles"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passMain" />
 
     <Button
-        android:id="@+id/btnIngresar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp"
-        android:layout_weight="1"
-        android:background="#FF0000"
-        android:text="Ingresar"
-        android:textColor="#ffffff"
-        android:textSize="30dp"
-        android:textStyle="bold"/>
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginBottom="8dp"
+        android:text="Iniciar Sesión"
+        android:onClick="loginButton"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintStart_toStartOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerRol" />
 
     <Button
-        android:id="@+id/btnRegistrar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:text="Registrar Usuario"
         android:onClick="onButton"
-        android:layout_margin="20dp"
-        android:layout_weight="1"
-        android:background="#0000ff"
-        android:text="Registrar usuario"
-        android:textColor="#ffffff"
-        android:textSize="30dp"
-        android:textStyle="bold"/>
-</LinearLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+</androidx.constraintlayout.widget.ConstraintLayout>

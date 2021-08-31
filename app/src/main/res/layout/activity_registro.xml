@@ -13,7 +13,7 @@
         android:layout_height="48dp"
         android:entries="@array/roles"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/celular" />
+        app:layout_constraintTop_toBottomOf="@+id/passwd" />
 
     <TextView
         android:id="@+id/textView"
@@ -90,12 +90,24 @@
         android:id="@+id/registro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="#0000ff"
         android:hint="Registrar usuario"
         android:onClick="registrarUsuario"
-        android:background="#0000ff"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.936"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/passwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="@string/passwd"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/celular" />
 </androidx.constraintlayout.widget.ConstraintLayout>

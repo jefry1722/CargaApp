@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CargaApp">
+        <activity android:name=".Login"></activity>
         <activity
             android:name=".Registro"
             android:exported="true" />
