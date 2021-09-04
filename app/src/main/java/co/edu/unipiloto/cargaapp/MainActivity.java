@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Lógica de login
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
-        SQLiteDatabase baseDatos = admin.getWritableDatabase();
+        SQLiteDatabase baseDatos = admin.getReadableDatabase();
         Cursor consulta=admin.getUsuario(baseDatos,id,nombre_tabla);
 
         if (consulta.getCount()==0){
@@ -61,8 +61,9 @@ public class MainActivity extends AppCompatActivity {
             while (consulta.moveToNext()){
                 if (consulta.getString(5).equals(password)){
                     Intent intent = new Intent (this, Login.class);
-                    intent.putExtra(Login.NOMBRE_USE,consulta.getString(2));
+                    intent.putExtra(Login.NOMBRE_USE,consulta.getString(1));
                     intent.putExtra(Login.TABLA,nombre_tabla);
+                    intent.putExtra(Login.ID,consulta.getString(0));
                     startActivity(intent);
 
                 }

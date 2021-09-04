@@ -37,4 +37,8 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         Cursor cursor = baseDatos.rawQuery("SELECT id,nombres,apellidos,fecha_nacimiento,celular,password,correo FROM " + rol + " WHERE id=" + id, null);
         return cursor;
     }
+
+    public void actualizarDatos(SQLiteDatabase baseDatos, String nombre, String apellido, String celular, String correo){
+
+    }
 }

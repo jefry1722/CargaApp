@@ -13,6 +13,7 @@ public class Login extends AppCompatActivity {
 
     public static final String NOMBRE_USE="";
     public static final String TABLA="";
+    public static final String ID="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,8 @@ public class Login extends AppCompatActivity {
 
     public void onActualizarDatos(View view){
         Intent i = new Intent (this, ActualizarDatos.class);
+        i.putExtra(ActualizarDatos.NOMBRE_TABLE,TABLA);
+        i.putExtra(ActualizarDatos.ID,ID);
         startActivity(i);
     }
 }
