@@ -10,9 +10,9 @@ import androidx.annotation.Nullable;
 public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
 
-    private final String SQL_PROP_CAMION="create table propietario_de_camion(id text primary key, nombres text, apellidos text, fecha_nacimiento date, celular text, password text);";
-    private final String SQL_PROP_CARGA="create table propietario_de_carga(id text primary key, nombres text, apellidos text, fecha_nacimiento date, celular text, password text);";
-    private final String SQL_COND_CAMION="create table conductor_de_camion(id text primary key, nombres text, apellidos text, fecha_nacimiento date, celular text, password text);";
+    private final String SQL_PROP_CAMION="create table propietario_de_camion(id text primary key, nombres text, apellidos text, fecha_nacimiento date, celular text, password text, correo text);";
+    private final String SQL_PROP_CARGA="create table propietario_de_carga(id text primary key, nombres text, apellidos text, fecha_nacimiento date, celular text, password text, correo text);";
+    private final String SQL_COND_CAMION="create table conductor_de_camion(id text primary key, nombres text, apellidos text, fecha_nacimiento date, celular text, password text, correo text);";
 
     public AdminSQLiteOpenHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -31,5 +31,10 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         baseDatos.execSQL("DROP TABLE IF EXISTS '" + "propietario_de_carga"+ "'");
         baseDatos.execSQL("DROP TABLE IF EXISTS '" + "conductor_de_camion"+ "'");
         onCreate(baseDatos);
+    }
+
+    public Cursor getUsuario(SQLiteDatabase baseDatos,String id,String rol) {
+        Cursor cursor = baseDatos.rawQuery("SELECT id,nombres,apellidos,fecha_nacimiento,celular,password,correo FROM " + rol + " WHERE id=" + id, null);
+        return cursor;
     }
 }

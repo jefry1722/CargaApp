@@ -7,6 +7,7 @@
     <string name="celular">Número telefónico</string>
     <string name="rol">Rol</string>
     <string name="passwd">Contraseña</string>
+    <string name="correo">Correo</string>
 
     <string-array name="roles">
         <item>Propietario de carga</item>

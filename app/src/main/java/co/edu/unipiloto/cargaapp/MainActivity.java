@@ -50,40 +50,28 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Lógica de login
-        String consulta=getUsuario(getApplicationContext().openOrCreateDatabase("administracion", Context.MODE_PRIVATE,null),id,password,nombre_tabla);
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+        SQLiteDatabase baseDatos = admin.getWritableDatabase();
+        Cursor consulta=admin.getUsuario(baseDatos,id,nombre_tabla);
 
-        if (consulta.equals("")){
+        if (consulta.getCount()==0){
             Toast.makeText(this, "El usuario no existe", Toast.LENGTH_SHORT).show();
         }
-        else if(consulta.equals("c&t&i")){
-            Toast.makeText(this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
-        }
         else{
-            Intent intent = new Intent (this, Login.class);
-            intent.putExtra(Login.NOMBRE_USER, consulta);
-            startActivity(intent);
-        }
-    }
-
-    private String getUsuario(SQLiteDatabase baseDatos,String id,String passwd, String rol){
-        Cursor cursor=baseDatos.rawQuery("SELECT id,nombres,password FROM "+rol+" WHERE id=" + id,null);
-
-        if(cursor.getCount()==0){
-            cursor.close();
-            return "";
-        }else{
-            String passwdStr;
-            while(cursor.moveToNext()){
-                passwdStr=cursor.getString(2);
-                if(passwdStr.equals(passwd)){
-                    String nombreCursor= cursor.getString(1);
-                    cursor.close();
-                    return nombreCursor;
+            while (consulta.moveToNext()){
+                if (consulta.getString(5).equals(password)){
+                    Intent intent = new Intent (this, Login.class);
+                    intent.putExtra(Login.NOMBRE_USE,consulta.getString(2));
+                    intent.putExtra(Login.TABLA,nombre_tabla);
+                    startActivity(intent);
 
                 }
+                else{
+                    Toast.makeText(this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
+                }
             }
-            cursor.close();
-            return "c&t&i";
+            consulta.close();
+
         }
     }
 

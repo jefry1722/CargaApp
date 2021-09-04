@@ -26,7 +26,7 @@
         app:srcCompat="@mipmap/login" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/user_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bienvenido usuario!"
@@ -37,17 +37,18 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/buttonActualizar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Actualizar información"
         android:textStyle="bold"
+        android:onClick="onActualizarDatos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/buttonCerrarSesion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cerrar sesión"
@@ -58,12 +59,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/buttonCambiarPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cambiar contraseña"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonActualizar" />
 </androidx.constraintlayout.widget.ConstraintLayout>
