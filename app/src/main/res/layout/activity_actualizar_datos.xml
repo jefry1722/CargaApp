@@ -76,7 +76,7 @@
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/correo"
+        android:id="@+id/correoAD"
         android:layout_width="210dp"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"

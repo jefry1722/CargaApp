@@ -14,6 +14,9 @@ public class Login extends AppCompatActivity {
     public static final String NOMBRE_USE="";
     public static final String TABLA="";
     public static final String ID="";
+    private String nombreText;
+    private String tablaText;
+    private String idText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +24,11 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         Intent intent = getIntent();
-        String nombreText = intent.getStringExtra(NOMBRE_USE);
+        nombreText = intent.getStringExtra(NOMBRE_USE);
+        tablaText = intent.getStringExtra(TABLA);
+        idText = intent.getStringExtra(ID);
         TextView nombreView = findViewById(R.id.user_login);
-        nombreView.setText(nombreText);
+        nombreView.setText(nombreText+" "+tablaText+" "+idText);
     }
 
     public void onCerrarSesion (View view){
@@ -33,8 +38,8 @@ public class Login extends AppCompatActivity {
 
     public void onActualizarDatos(View view){
         Intent i = new Intent (this, ActualizarDatos.class);
-        i.putExtra(ActualizarDatos.NOMBRE_TABLE,TABLA);
-        i.putExtra(ActualizarDatos.ID,ID);
+        i.putExtra(ActualizarDatos.NOMBRE_TABLE,tablaText);
+        i.putExtra(ActualizarDatos.ID,idText);
         startActivity(i);
     }
 }
