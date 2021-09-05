@@ -38,7 +38,26 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public void actualizarDatos(SQLiteDatabase baseDatos, String nombre, String apellido, String celular, String correo){
+    public void actualizarDatos(SQLiteDatabase baseDatos, String id,String nombre, String apellido, String celular, String correo, String nombre_tabla){
+        String update="UPDATE "+nombre_tabla+" SET ";
+        if (!nombre.trim().equals("")){
+            update+="nombres ='"+nombre+"',";
+        }
+        if (!apellido.trim().equals("")){
+            update+="apellidos ='"+apellido+"',";
+        }
+        if (!celular.trim().equals("")){
+            update+="celular =''"+celular+"',";
+        }
+        if (!correo.trim().equals("")){
+            update+="correo ='"+correo+"'";
+        }
+        update+=" WHERE id="+id;
+        baseDatos.execSQL(update);
 
+    }
+
+    public void cambiarPassword(SQLiteDatabase baseDatos,String id, String password, String nombre_tabla){
+        baseDatos.execSQL("UPDATE "+nombre_tabla+" SET password='"+password+"' WHERE id="+id);
     }
 }

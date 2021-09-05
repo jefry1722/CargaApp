@@ -65,6 +65,7 @@
         android:text="Cambiar contraseña"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        android:onClick="onCambiarContra"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonActualizar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CargaApp">
-        <activity android:name=".ActualizarDatos"></activity>
+        <activity android:name=".CambiarPassword"></activity>
+        <activity android:name=".ActualizarDatos" />
         <activity android:name=".Login" />
         <activity
             android:name=".Registro"

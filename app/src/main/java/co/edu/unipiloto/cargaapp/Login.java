@@ -11,12 +11,8 @@ import android.widget.Toast;
 
 public class Login extends AppCompatActivity {
 
-    public static final String NOMBRE_USE="";
-    public static final String TABLA="";
-    public static final String ID="";
-    private String nombreText;
-    private String tablaText;
-    private String idText;
+    public static String NOMBRE_USE="";
+    private String nombreIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +20,10 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         Intent intent = getIntent();
-        nombreText = intent.getStringExtra(NOMBRE_USE);
-        tablaText = intent.getStringExtra(TABLA);
-        idText = intent.getStringExtra(ID);
+        String nombreText = intent.getStringExtra(NOMBRE_USE);
+        nombreIntent=nombreText+"";
         TextView nombreView = findViewById(R.id.user_login);
-        nombreView.setText(nombreText+" "+tablaText+" "+idText);
+        nombreView.setText(nombreText.split(" ")[0]);
     }
 
     public void onCerrarSesion (View view){
@@ -38,8 +33,12 @@ public class Login extends AppCompatActivity {
 
     public void onActualizarDatos(View view){
         Intent i = new Intent (this, ActualizarDatos.class);
-        i.putExtra(ActualizarDatos.NOMBRE_TABLE,tablaText);
-        i.putExtra(ActualizarDatos.ID,idText);
+        i.putExtra(ActualizarDatos.NOMBRE_USE,nombreIntent);
+        startActivity(i);
+    }
+
+    public void onCambiarContra(View view){
+        Intent i = new Intent (this, CambiarPassword.class);
         startActivity(i);
     }
 }

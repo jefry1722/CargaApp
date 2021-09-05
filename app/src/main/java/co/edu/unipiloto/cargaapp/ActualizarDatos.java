@@ -12,8 +12,7 @@ import android.widget.EditText;
 public class ActualizarDatos extends AppCompatActivity {
 
     private EditText et_nombre, et_apellido, et_celular, et_correo;
-    public static final String NOMBRE_TABLE="";
-    public static final String ID="";
+    public static String NOMBRE_USE="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,35 +23,35 @@ public class ActualizarDatos extends AppCompatActivity {
         et_correo=(EditText)findViewById(R.id.correoAD);
 
         Intent intent = getIntent();
-        String tablaText = intent.getStringExtra(NOMBRE_TABLE);
-        String idText=intent.getStringExtra(ID);
+        String tablaText = intent.getStringExtra(NOMBRE_USE);
 
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
         SQLiteDatabase baseDatos = admin.getWritableDatabase();
-        //Cursor consulta=admin.getUsuario(baseDatos,ID,NOMBRE_TABLE);
-        et_nombre.setText(idText);
-        et_apellido.setText(tablaText);
+        Cursor consulta=admin.getUsuario(baseDatos,tablaText.split(" ")[1],tablaText.split(" ")[2]);
 
-        /*if(consulta.getCount()==0){
-            et_nombre.setText("NO");
-        }
-        else{
-            while (consulta.moveToNext()){
-
+           /* while (consulta.moveToNext()){
                 et_nombre.setText(consulta.getString(1));
                 et_apellido.setText(consulta.getString(2));
                 et_celular.setText(consulta.getString(4));
                 et_correo.setText(consulta.getString(6));
             }
-            consulta.close();
-        }*/
-
+            consulta.close();*/
+        admin.close();
 
     }
 
     public void actualizar(View view){
-
-
-
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+        SQLiteDatabase baseDatos = admin.getWritableDatabase();
+        String nombre = et_nombre.getText().toString();
+        String apellido = et_apellido.getText().toString();
+        String correo=et_correo.getText().toString();
+        String celular = et_celular.getText().toString();
+        Intent intent = getIntent();
+        String tablaText = intent.getStringExtra(NOMBRE_USE);
+        
+        admin.actualizarDatos(baseDatos,"1",nombre,apellido,celular,correo,"propietario_de_carga");
+        baseDatos.close();
+        admin.close();
     }
 }

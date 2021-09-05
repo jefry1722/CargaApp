@@ -60,12 +60,10 @@ public class MainActivity extends AppCompatActivity {
         else{
             while (consulta.moveToNext()){
                 if (consulta.getString(5).equals(password)){
+                    String datosIntent=consulta.getString(1)+" "+consulta.getString(0)+" "+nombre_tabla;
                     Intent intent = new Intent (this, Login.class);
-                    intent.putExtra(Login.NOMBRE_USE,consulta.getString(1));
-                    intent.putExtra(Login.TABLA,nombre_tabla);
-                    intent.putExtra(Login.ID,consulta.getString(0));
+                    intent.putExtra(Login.NOMBRE_USE,datosIntent);
                     startActivity(intent);
-
                 }
                 else{
                     Toast.makeText(this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
