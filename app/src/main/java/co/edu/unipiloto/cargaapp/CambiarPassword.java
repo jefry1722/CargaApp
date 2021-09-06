@@ -2,6 +2,7 @@ package co.edu.unipiloto.cargaapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 public class CambiarPassword extends AppCompatActivity {
 
     private EditText et_nueva,et_confirmar;
+    public static String NOMBRE_USE="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +30,15 @@ public class CambiarPassword extends AppCompatActivity {
         SQLiteDatabase baseDatos = admin.getWritableDatabase();
 
         if (nueva.equals(confirmar)){
-            admin.cambiarPassword(baseDatos,"1",nueva,"propietario_de_carga");
+            Intent intent = getIntent();
+            String tablaText = intent.getStringExtra(NOMBRE_USE);
+            admin.cambiarPassword(baseDatos,tablaText.split(" ")[1],nueva,tablaText.split(" ")[2]);
+            baseDatos.close();
+            admin.close();
+
+            Intent intentSender=new Intent(this,Login.class);
+            intentSender.putExtra(Login.NOMBRE_USE,tablaText);
+            startActivity(intentSender);
         }else {
             Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
         }

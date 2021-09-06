@@ -1,5 +1,6 @@
 package co.edu.unipiloto.cargaapp;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -39,21 +40,22 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     }
 
     public void actualizarDatos(SQLiteDatabase baseDatos, String id,String nombre, String apellido, String celular, String correo, String nombre_tabla){
-        String update="UPDATE "+nombre_tabla+" SET ";
+        ContentValues cv= new ContentValues();
+
         if (!nombre.trim().equals("")){
-            update+="nombres ='"+nombre+"',";
+            cv.put("nombres",nombre);
         }
         if (!apellido.trim().equals("")){
-            update+="apellidos ='"+apellido+"',";
+            cv.put("apellidos",apellido);
         }
         if (!celular.trim().equals("")){
-            update+="celular =''"+celular+"',";
+            cv.put("celular",celular);
         }
         if (!correo.trim().equals("")){
-            update+="correo ='"+correo+"'";
+            cv.put("correo",correo);
         }
-        update+=" WHERE id="+id;
-        baseDatos.execSQL(update);
+        String[] args= new String[]{id};
+        baseDatos.update(nombre_tabla,cv,"id=?",args);
 
     }
 

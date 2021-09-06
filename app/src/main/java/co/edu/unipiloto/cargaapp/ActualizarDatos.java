@@ -13,6 +13,7 @@ public class ActualizarDatos extends AppCompatActivity {
 
     private EditText et_nombre, et_apellido, et_celular, et_correo;
     public static String NOMBRE_USE="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +28,7 @@ public class ActualizarDatos extends AppCompatActivity {
 
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
         SQLiteDatabase baseDatos = admin.getWritableDatabase();
-        Cursor consulta=admin.getUsuario(baseDatos,tablaText.split(" ")[1],tablaText.split(" ")[2]);
+        //Cursor consulta=admin.getUsuario(baseDatos,tablaText.split(" ")[1],tablaText.split(" ")[2]);
 
            /* while (consulta.moveToNext()){
                 et_nombre.setText(consulta.getString(1));
@@ -49,9 +50,14 @@ public class ActualizarDatos extends AppCompatActivity {
         String celular = et_celular.getText().toString();
         Intent intent = getIntent();
         String tablaText = intent.getStringExtra(NOMBRE_USE);
-        
-        admin.actualizarDatos(baseDatos,"1",nombre,apellido,celular,correo,"propietario_de_carga");
+
+        admin.actualizarDatos(baseDatos,tablaText.split(" ")[1],nombre,apellido,celular,correo,tablaText.split(" ")[2]);
         baseDatos.close();
         admin.close();
+
+        Intent intentSender=new Intent(this,Login.class);
+        String dataStr=nombre+" "+tablaText.split(" ")[1]+" "+tablaText.split(" ")[2];
+        intentSender.putExtra(Login.NOMBRE_USE,dataStr);
+        startActivity(intentSender);
     }
 }

@@ -23,7 +23,7 @@ public class Login extends AppCompatActivity {
         String nombreText = intent.getStringExtra(NOMBRE_USE);
         nombreIntent=nombreText+"";
         TextView nombreView = findViewById(R.id.user_login);
-        nombreView.setText(nombreText.split(" ")[0]);
+        nombreView.setText(nombreIntent.split(" ")[0]);
     }
 
     public void onCerrarSesion (View view){
@@ -39,6 +39,7 @@ public class Login extends AppCompatActivity {
 
     public void onCambiarContra(View view){
         Intent i = new Intent (this, CambiarPassword.class);
+        i.putExtra(ActualizarDatos.NOMBRE_USE,nombreIntent);
         startActivity(i);
     }
 }
