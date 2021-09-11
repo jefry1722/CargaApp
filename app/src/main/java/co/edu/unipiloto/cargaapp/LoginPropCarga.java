@@ -41,4 +41,10 @@ public class LoginPropCarga extends AppCompatActivity {
         i.putExtra(ActualizarDatos.NOMBRE_USE,nombreIntent);
         startActivity(i);
     }
+
+    public void onSolicitarTransporte(View view){
+        Intent i = new Intent (this, SolicitarCarga.class);
+        i.putExtra(SolicitarCarga.NOMBRE_USE,nombreIntent);
+        startActivity(i);
+    }
 }

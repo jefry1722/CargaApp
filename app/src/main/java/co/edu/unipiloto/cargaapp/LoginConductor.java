@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class LoginConductor extends AppCompatActivity {
@@ -22,4 +23,22 @@ public class LoginConductor extends AppCompatActivity {
         TextView nombreView = findViewById(R.id.user_loginConductor);
         nombreView.setText(nombreIntent.split(" ")[0]);
     }
+
+    public void onCerrarSesion (View view){
+        Intent i = new Intent (this, MainActivity.class);
+        startActivity(i);
+    }
+
+    public void onActualizarDatos(View view){
+        Intent i = new Intent (this, ActualizarDatos.class);
+        i.putExtra(ActualizarDatos.NOMBRE_USE,nombreIntent);
+        startActivity(i);
+    }
+
+    public void onCambiarContra(View view){
+        Intent i = new Intent (this, CambiarPassword.class);
+        i.putExtra(ActualizarDatos.NOMBRE_USE,nombreIntent);
+        startActivity(i);
+    }
+
 }
