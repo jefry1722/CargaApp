@@ -3,7 +3,6 @@ package co.edu.unipiloto.cargaapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -55,9 +54,9 @@ public class ActualizarDatos extends AppCompatActivity {
         baseDatos.close();
         admin.close();
 
-        Intent intentSender=new Intent(this,Login.class);
+        Intent intentSender=new Intent(this, LoginPropCarga.class);
         String dataStr=nombre+" "+tablaText.split(" ")[1]+" "+tablaText.split(" ")[2];
-        intentSender.putExtra(Login.NOMBRE_USE,dataStr);
+        intentSender.putExtra(LoginPropCarga.NOMBRE_USE,dataStr);
         startActivity(intentSender);
     }
 }

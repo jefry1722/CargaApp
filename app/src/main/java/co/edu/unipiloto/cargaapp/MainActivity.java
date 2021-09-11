@@ -2,7 +2,6 @@ package co.edu.unipiloto.cargaapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -59,10 +58,23 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             while (consulta.moveToNext()){
-                if (consulta.getString(5).equals(password)){
+                if (consulta.getString(5).equals(password) && rol.equals("Propietario de carga")){
                     String datosIntent=consulta.getString(1)+" "+consulta.getString(0)+" "+nombre_tabla;
-                    Intent intent = new Intent (this, Login.class);
-                    intent.putExtra(Login.NOMBRE_USE,datosIntent);
+                    Intent intent = new Intent (this, LoginPropCarga.class);
+                    intent.putExtra(LoginPropCarga.NOMBRE_USE,datosIntent);
+                    //intent.putExtra(LoginPropCarga.ID_USE, datosIntent);
+                    startActivity(intent);
+                }
+                else if (consulta.getString(5).equals(password) && rol.equals("Propietario de camion")){
+                    String datosIntent=consulta.getString(1)+" "+consulta.getString(0)+" "+nombre_tabla;
+                    Intent intent = new Intent (this, LoginPropCamion.class);
+                    intent.putExtra(LoginPropCamion.NOMBRE_USE,datosIntent);
+                    startActivity(intent);
+                }
+                else if (consulta.getString(5).equals(password) && rol.equals("Conductor de camion")){
+                    String datosIntent=consulta.getString(1)+" "+consulta.getString(0)+" "+nombre_tabla;
+                    Intent intent = new Intent (this, LoginConductor.class);
+                    intent.putExtra(LoginConductor.NOMBRE_USE,datosIntent);
                     startActivity(intent);
                 }
                 else{

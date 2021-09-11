@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login">
+    tools:context=".LoginPropCarga">
 
     <TextView
-        android:id="@+id/nombre"
+        android:id="@+id/nombreConductor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,7 +26,7 @@
         app:srcCompat="@mipmap/login" />
 
     <TextView
-        android:id="@+id/user_login"
+        android:id="@+id/user_loginConductor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bienvenido usuario!"
@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/buttonActualizar"
+        android:id="@+id/buttonActualizarConductor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Actualizar información"
@@ -48,7 +48,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonCerrarSesion"
+        android:id="@+id/buttonCerrarSesionConductor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cerrar sesión"
@@ -59,7 +59,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/buttonCambiarPassword"
+        android:id="@+id/buttonCambiarPasswordConductor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cambiar contraseña"
@@ -67,5 +67,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:onClick="onCambiarContra"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonActualizar" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonActualizarConductor" />
 </androidx.constraintlayout.widget.ConstraintLayout>

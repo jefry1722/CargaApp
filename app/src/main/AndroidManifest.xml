@@ -9,9 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CargaApp">
-        <activity android:name=".CambiarPassword"></activity>
+        <activity
+            android:name=".LoginConductor"
+            android:exported="true" />
+        <activity
+            android:name=".LoginPropCamion"
+            android:exported="true" />
+        <activity android:name=".CambiarPassword" />
         <activity android:name=".ActualizarDatos" />
-        <activity android:name=".Login" />
+        <activity android:name=".LoginPropCarga" />
         <activity
             android:name=".Registro"
             android:exported="true" />

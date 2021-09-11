@@ -36,8 +36,8 @@ public class CambiarPassword extends AppCompatActivity {
             baseDatos.close();
             admin.close();
 
-            Intent intentSender=new Intent(this,Login.class);
-            intentSender.putExtra(Login.NOMBRE_USE,tablaText);
+            Intent intentSender=new Intent(this, LoginPropCarga.class);
+            intentSender.putExtra(LoginPropCarga.NOMBRE_USE,tablaText);
             startActivity(intentSender);
         }else {
             Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
