@@ -3,6 +3,7 @@ package co.edu.unipiloto.cargaapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -27,15 +28,15 @@ public class ActualizarDatos extends AppCompatActivity {
 
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
         SQLiteDatabase baseDatos = admin.getWritableDatabase();
-        //Cursor consulta=admin.getUsuario(baseDatos,tablaText.split(" ")[1],tablaText.split(" ")[2]);
+        Cursor consulta=admin.getUsuario(baseDatos,tablaText.split(" ")[1],tablaText.split(" ")[2]);
 
-           /* while (consulta.moveToNext()){
+           while (consulta.moveToNext()){
                 et_nombre.setText(consulta.getString(1));
                 et_apellido.setText(consulta.getString(2));
                 et_celular.setText(consulta.getString(4));
                 et_correo.setText(consulta.getString(6));
             }
-            consulta.close();*/
+            consulta.close();
         admin.close();
 
     }
