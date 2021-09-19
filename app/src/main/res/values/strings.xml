@@ -14,4 +14,6 @@
         <item>Propietario de camion</item>
         <item>Conductor de camion</item>
     </string-array>
+    <string name="consultar_carga">Consultar cargas</string>
+    <string name="solicitudes_de_carga_disponibles">Solicitudes de carga disponibles</string>
 </resources>

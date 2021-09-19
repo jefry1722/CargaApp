@@ -67,4 +67,11 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     public void cambiarPassword(SQLiteDatabase baseDatos,String id, String password, String nombre_tabla){
         baseDatos.execSQL("UPDATE "+nombre_tabla+" SET password='"+password+"' WHERE id="+id);
     }
+
+    public Cursor getSolicitudesDeCarga(SQLiteDatabase baseDatos){
+        String query="SELECT s.id, s.fecha_recoleccion, s.hora_recoleccion,s.direccion_recoleccion,s.ciudad_recoleccion,s.fecha_entrega,s.hora_entrega,s.direccion_entrega,s.ciudad_entrega,p.id,p.nombres,p.apellidos\n" +
+                "FROM `solicitud_carga` s\n" +
+                "JOIN `propietario_de_carga` p ON (p.id=s.id_propietario_carga)";
+        return baseDatos.rawQuery(query,null);
+    }
 }

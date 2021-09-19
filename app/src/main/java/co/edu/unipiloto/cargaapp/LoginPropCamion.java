@@ -48,4 +48,10 @@ public class LoginPropCamion extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void onConsultarCargas(View view){
+        Intent i = new Intent (this, ConsultarSolicitudesDeCarga.class);
+        i.putExtra(ConsultarSolicitudesDeCarga.NOMBRE_USE,nombreIntent);
+        startActivity(i);
+    }
+
 }

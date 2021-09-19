@@ -79,4 +79,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonCambiarPasswordPropCamion" />
+
+    <Button
+        android:id="@+id/btnSolicitarCarga"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:onClick="onConsultarCargas"
+        android:text="@string/consultar_carga"
+        app:layout_constraintBottom_toTopOf="@+id/buttonCerrarSesionPropCamion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

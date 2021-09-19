@@ -30,13 +30,13 @@ public class ActualizarDatos extends AppCompatActivity {
         SQLiteDatabase baseDatos = admin.getWritableDatabase();
         Cursor consulta=admin.getUsuario(baseDatos,tablaText.split(" ")[1],tablaText.split(" ")[2]);
 
-           while (consulta.moveToNext()){
-                et_nombre.setText(consulta.getString(1));
-                et_apellido.setText(consulta.getString(2));
-                et_celular.setText(consulta.getString(4));
-                et_correo.setText(consulta.getString(6));
-            }
-            consulta.close();
+        while (consulta.moveToNext()){
+            et_nombre.setText(consulta.getString(1));
+            et_apellido.setText(consulta.getString(2));
+            et_celular.setText(consulta.getString(4));
+            et_correo.setText(consulta.getString(6));
+        }
+        consulta.close();
         admin.close();
 
     }

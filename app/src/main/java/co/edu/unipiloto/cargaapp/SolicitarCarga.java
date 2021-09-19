@@ -49,6 +49,7 @@ public class SolicitarCarga extends AppCompatActivity {
         if (!fechaR.isEmpty() && !horaR.isEmpty() && !direccionR.isEmpty()&& !ciudadR.isEmpty() && !fechaE.isEmpty() && !horaE.isEmpty() && !direccionE.isEmpty()&& !ciudadE.isEmpty()){
             ContentValues registro = new ContentValues();
 
+            registro.put("fecha_recoleccion",fechaR);
             registro.put("hora_recoleccion", horaR);
             registro.put("direccion_recoleccion", direccionR);
             registro.put("ciudad_recoleccion", ciudadR);
