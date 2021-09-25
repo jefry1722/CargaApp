@@ -15,7 +15,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     private final String SQL_PROP_CARGA="create table propietario_de_carga(id text primary key, nombres text, apellidos text, fecha_nacimiento date, celular text, password text, correo text);";
     private final String SQL_COND_CAMION="create table conductor_de_camion(id text primary key, nombres text, apellidos text, fecha_nacimiento date, celular text, password text, correo text);";
     private final String SQL_CAMION="create table camion(placa text primary key, marca text, modelo text, capacidad integer, color text, kilometros integer, id_propietario text);";
-    private final String SQL_SOLICITUD_CARGA="create table solicitud_carga(id integer primary key autoincrement, fecha_recoleccion date, hora_recoleccion text, direccion_recoleccion text, ciudad_recoleccion text, fecha_entrega date, hora_entrega text, direccion_entrega text, ciudad_entrega text, id_propietario_carga text);";
+    private final String SQL_SOLICITUD_CARGA="create table solicitud_carga(id integer primary key autoincrement, fecha_recoleccion date, hora_recoleccion text, direccion_recoleccion text, ciudad_recoleccion text, fecha_entrega date, hora_entrega text, direccion_entrega text, ciudad_entrega text, id_propietario_carga text, id_propietario_camion text);";
 
     public AdminSQLiteOpenHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -64,6 +64,14 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         baseDatos.update(nombre_tabla,cv,"id=?",args);
     }
 
+    public void aplicarCarga(SQLiteDatabase baseDatos,String id_propietario_camion, String id_propietario_carga){
+        ContentValues cv= new ContentValues();
+        cv.put("id_propietario_camion" ,id_propietario_camion);
+        String[] args= new String[]{id_propietario_carga};
+        baseDatos.update("solicitud_carga",cv,"id=?",args);
+
+    }
+
     public void cambiarPassword(SQLiteDatabase baseDatos,String id, String password, String nombre_tabla){
         baseDatos.execSQL("UPDATE "+nombre_tabla+" SET password='"+password+"' WHERE id="+id);
     }
@@ -71,7 +79,16 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     public Cursor getSolicitudesDeCarga(SQLiteDatabase baseDatos){
         String query="SELECT s.id, s.fecha_recoleccion, s.hora_recoleccion,s.direccion_recoleccion,s.ciudad_recoleccion,s.fecha_entrega,s.hora_entrega,s.direccion_entrega,s.ciudad_entrega,p.id,p.nombres,p.apellidos\n" +
                 "FROM `solicitud_carga` s\n" +
-                "JOIN `propietario_de_carga` p ON (p.id=s.id_propietario_carga)";
+                "JOIN `propietario_de_carga` p ON (p.id=s.id_propietario_carga)\n" +
+                "WHERE s.id_propietario_camion IS NULL";
+        return baseDatos.rawQuery(query,null);
+    }
+
+    public Cursor getSolicitudCarga(SQLiteDatabase baseDatos, String id){
+        String query="SELECT s.fecha_recoleccion, s.hora_recoleccion,s.direccion_recoleccion,s.ciudad_recoleccion,s.fecha_entrega,s.hora_entrega,s.direccion_entrega,s.ciudad_entrega,p.id,p.nombres,p.apellidos, s.id\n" +
+                "FROM `solicitud_carga` s\n" +
+                "JOIN `propietario_de_carga` p ON (p.id=s.id_propietario_carga)\n" +
+                "WHERE s.id ="+id;
         return baseDatos.rawQuery(query,null);
     }
 }

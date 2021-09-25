@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CargaApp">
-        <activity android:name=".ConsultarSolicitudesDeCarga"></activity>
+        <activity
+            android:name=".AplicarSolicitudesCarga"
+            android:exported="true" />
+        <activity android:name=".ConsultarSolicitudesDeCarga" />
         <activity
             android:name=".SolicitarCarga"
             android:exported="true" />
