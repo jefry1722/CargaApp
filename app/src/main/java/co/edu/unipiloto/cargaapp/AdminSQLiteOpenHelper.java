@@ -77,7 +77,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     }
 
     public Cursor getSolicitudesDeCarga(SQLiteDatabase baseDatos){
-        String query="SELECT s.id, s.fecha_recoleccion, s.hora_recoleccion,s.direccion_recoleccion,s.ciudad_recoleccion,s.fecha_entrega,s.hora_entrega,s.direccion_entrega,s.ciudad_entrega,p.id,p.nombres,p.apellidos\n" +
+        String query="SELECT s.id as _id,  p.nombres || ' ' || p.apellidos || ' ' || s.ciudad_recoleccion || ' ' || s.fecha_recoleccion || ' ' || s.hora_recoleccion as informacion\n" +
                 "FROM `solicitud_carga` s\n" +
                 "JOIN `propietario_de_carga` p ON (p.id=s.id_propietario_carga)\n" +
                 "WHERE s.id_propietario_camion IS NULL";
