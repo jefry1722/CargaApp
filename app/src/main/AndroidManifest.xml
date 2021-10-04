@@ -9,13 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CargaApp">
+        <activity android:name=".ConsultarEstadoCargas"></activity>
         <activity
             android:name=".AplicarSolicitudesCarga"
             android:exported="true" />
         <activity android:name=".ConsultarSolicitudesDeCarga" />
         <activity
             android:name=".SolicitarCarga"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".LoginPropCarga">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoginPropCarga" />
+            >
+        </activity>
         <activity
             android:name=".RegistrarCamion"
             android:exported="true" />
@@ -27,7 +34,10 @@
             android:exported="true" />
         <activity android:name=".CambiarPassword" />
         <activity android:name=".ActualizarDatos" />
-        <activity android:name=".LoginPropCarga" />
+        <activity
+            android:name=".LoginPropCarga"
+            android:exported="true"
+            android:label="@string/cargas" />
         <activity
             android:name=".Registro"
             android:exported="true" />

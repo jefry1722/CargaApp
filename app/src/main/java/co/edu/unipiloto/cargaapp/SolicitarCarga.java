@@ -1,6 +1,8 @@
 package co.edu.unipiloto.cargaapp;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -12,7 +14,7 @@ import android.widget.Toast;
 
 public class SolicitarCarga extends AppCompatActivity {
 
-    private EditText fechar, horar, direccionr, ciudadr, fechae, horae, direccione, ciudade;
+    private EditText fechar, horar, direccionr, ciudadr, fechae, horae, direccione, ciudade, contenido, peso;
     public static String NOMBRE_USE="";
 
     @Override
@@ -28,6 +30,14 @@ public class SolicitarCarga extends AppCompatActivity {
         horae = (EditText) findViewById(R.id.HoraE);
         direccione = (EditText)findViewById(R.id.DireccionE);
         ciudade = (EditText) findViewById(R.id.CiudadE);
+        contenido=(EditText)findViewById(R.id.Contenido);
+        peso=(EditText)findViewById(R.id.Peso);
+
+        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        //Botón de regreso
+        ActionBar actionBar=getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     public void SolicitarTransporte(View view) {
@@ -45,8 +55,10 @@ public class SolicitarCarga extends AppCompatActivity {
         String horaE = horae.getText().toString();
         String direccionE = direccione.getText().toString();
         String ciudadE = ciudade.getText().toString();
+        String contenidoStr=contenido.getText().toString();
+        String pesoStr= peso.getText().toString();
 
-        if (!fechaR.isEmpty() && !horaR.isEmpty() && !direccionR.isEmpty()&& !ciudadR.isEmpty() && !fechaE.isEmpty() && !horaE.isEmpty() && !direccionE.isEmpty()&& !ciudadE.isEmpty()){
+        if (!fechaR.isEmpty() && !horaR.isEmpty() && !direccionR.isEmpty()&& !ciudadR.isEmpty() && !fechaE.isEmpty() && !horaE.isEmpty() && !direccionE.isEmpty()&& !ciudadE.isEmpty() && !contenidoStr.isEmpty() && !pesoStr.isEmpty()){
             ContentValues registro = new ContentValues();
 
             registro.put("fecha_recoleccion",fechaR);
@@ -58,6 +70,9 @@ public class SolicitarCarga extends AppCompatActivity {
             registro.put("direccion_entrega", direccionE);
             registro.put("ciudad_entrega", ciudadE);
             registro.put("id_propietario_carga", tablaText.split(" " )[1]);
+            registro.put("estado", "Pendiente");
+            registro.put("contenido",contenidoStr);
+            registro.put("peso",pesoStr);
 
             baseDatos.insert("solicitud_carga", null, registro);
             baseDatos.close();
@@ -69,6 +84,9 @@ public class SolicitarCarga extends AppCompatActivity {
             horae.setText("");
             direccione.setText("");
             ciudade.setText("");
+            contenido.setText("");
+            peso.setText("");
+
             Toast.makeText(this, "La solicitud de transporte fue enviada con éxito", Toast.LENGTH_SHORT).show();
         }
         else {

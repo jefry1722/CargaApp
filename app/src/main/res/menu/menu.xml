@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_solicitar_carga"
+        android:title="Solicitar Carga"
+        android:icon="@drawable/ic_add_white_24dp"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"
+
+        />
+
+    <item
+        android:id="@+id/action_ver_cargas_solicitadas"
+        android:title="Ver cargas solicitadas"
+        android:icon="@drawable/baseline_history_white_24"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"
+
+        />
+</menu>
