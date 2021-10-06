@@ -1,6 +1,8 @@
 package co.edu.unipiloto.cargaapp;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -37,6 +39,12 @@ public class ConsultarEstadoCargas extends AppCompatActivity {
         }catch (Exception e){
             Toast.makeText(this, "Error: " + e, Toast.LENGTH_SHORT).show();
         }
+
+        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        //Botón de regreso
+        ActionBar actionBar=getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

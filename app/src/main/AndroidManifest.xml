@@ -9,11 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CargaApp">
-        <activity android:name=".ConsultarEstadoCargas"></activity>
+        <activity android:name=".ConsultarEstadoCargas"
+            android:exported="true"
+            android:parentActivityName=".LoginPropCarga">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoginPropCarga" />
+            ></activity>
         <activity
             android:name=".AplicarSolicitudesCarga"
             android:exported="true" />
-        <activity android:name=".ConsultarSolicitudesDeCarga" />
+        <activity android:name=".ConsultarSolicitudesDeCarga"
+            android:exported="true">
+        </activity>
         <activity
             android:name=".SolicitarCarga"
             android:exported="true"
