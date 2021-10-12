@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         String password=et_passwd.getText().toString();
         String id = et_id.getText().toString();
         et_rol = findViewById(R.id.spinnerRol);
-        //AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
 
         String rol = String.valueOf(et_rol.getSelectedItem());
         String nombre_tabla="";

@@ -1,10 +1,13 @@
 package co.edu.unipiloto.cargaapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,6 +26,35 @@ public class LoginPropCamion extends AppCompatActivity {
         nombreIntent=nombreText+"";
         TextView nombreView = findViewById(R.id.propCamion_login);
         nombreView.setText(nombreIntent.split(" ")[0]);
+
+        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        //Adicionar items al appbar
+        getMenuInflater().inflate(R.menu.menu_conductor,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            //Codigo a ejecutar al seleccionar Item
+            case R.id.action_asignar_camion:
+                Intent i = new Intent (this, ConsultarSolicitudesAsignacionCamion.class);
+                i.putExtra(ConsultarSolicitudesAsignacionCamion.NOMBRE_USE,nombreIntent);
+                startActivity(i);
+                return true;
+            case R.id.action_asignar_conductor:
+                Intent i2 = new Intent (this, ConsultarCamiones.class);
+                i2.putExtra(ConsultarCamiones.NOMBRE_USE,nombreIntent);
+                startActivity(i2);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void onCerrarSesion (View view){

@@ -14,8 +14,8 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     private final String SQL_PROP_CAMION="create table propietario_de_camion(id text primary key, nombres text, apellidos text, fecha_nacimiento date, celular text, password text, correo text);";
     private final String SQL_PROP_CARGA="create table propietario_de_carga(id text primary key, nombres text, apellidos text, fecha_nacimiento date, celular text, password text, correo text);";
     private final String SQL_COND_CAMION="create table conductor_de_camion(id text primary key, nombres text, apellidos text, fecha_nacimiento date, celular text, password text, correo text);";
-    private final String SQL_CAMION="create table camion(placa text primary key, marca text, modelo text, capacidad integer, color text, kilometros integer, id_propietario text);";
-    private final String SQL_SOLICITUD_CARGA="create table solicitud_carga(id integer primary key autoincrement, fecha_recoleccion date, hora_recoleccion text, direccion_recoleccion text, ciudad_recoleccion text, fecha_entrega date, hora_entrega text, direccion_entrega text, ciudad_entrega text, id_propietario_carga text, id_propietario_camion text, estado text, contenido text, peso text);";
+    private final String SQL_CAMION="create table camion(id integer primary key autoincrement, placa text, marca text, modelo text, capacidad integer, color text, kilometros integer, id_propietario text, id_conductor text);";
+    private final String SQL_SOLICITUD_CARGA="create table solicitud_carga(id integer primary key autoincrement, fecha_recoleccion date, hora_recoleccion text, direccion_recoleccion text, ciudad_recoleccion text, fecha_entrega date, hora_entrega text, direccion_entrega text, ciudad_entrega text, id_propietario_carga text, id_propietario_camion text, estado text, contenido text, peso text, id_camion text);";
 
     public AdminSQLiteOpenHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -98,5 +98,54 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
                 "FROM `solicitud_carga`\n"+
                 "WHERE id_propietario_carga="+id;
         return baseDatos.rawQuery(query,null);
+    }
+
+    public Cursor getCamiones(SQLiteDatabase baseDatos,String id_propietario){
+        String query="SELECT id as _id, 'PLACA: ' || placa || ' MARCA: ' || marca as informacion\n"+
+                "FROM `camion`\n"+
+                "WHERE id_propietario="+id_propietario+" AND id_conductor IS NULL";
+        return baseDatos.rawQuery(query,null);
+    }
+
+    public Cursor getCamionesInfo(SQLiteDatabase baseDatos,String id){
+        String query="SELECT placa, marca, modelo, capacidad, color, kilometros\n"+
+                "FROM `camion`\n"+
+                "WHERE id="+id;
+        return baseDatos.rawQuery(query,null);
+    }
+
+    public Cursor getSolicitudCargaAplicadas(SQLiteDatabase baseDatos,String id){
+        String query="SELECT id as _id, 'CARGA: ' || contenido || ' ' || peso || ' CIUDAD DE DESTINO: ' || ciudad_entrega as informacion\n"+
+                "FROM `solicitud_carga`\n"+
+                "WHERE id_propietario_camion="+id+" AND id_camion IS NULL";
+        return baseDatos.rawQuery(query,null);
+    }
+
+    public Cursor getConductor(SQLiteDatabase baseDatos){
+        String query="SELECT id as _id, id || ' ' || nombres || ' ' || apellidos as informacion\n"+
+                "FROM `conductor_de_camion`";
+        return baseDatos.rawQuery(query,null);
+    }
+
+    public void asignacionDeConductor(SQLiteDatabase baseDatos,String id_camion, String id_conductor){
+        ContentValues cv= new ContentValues();
+        cv.put("id_conductor" ,id_conductor);
+        String[] args= new String[]{id_camion};
+        baseDatos.update("camion",cv,"id=?",args);
+    }
+
+    public Cursor getCamionesSolicitudDeCarga(SQLiteDatabase baseDatos,String id_propietario_camion){
+        String query="SELECT id as _id,id || ' ' || placa || ' ' || marca as informacion\n"+
+                "FROM `camion`\n"+
+                "WHERE id_propietario="+id_propietario_camion;
+        return baseDatos.rawQuery(query,null);
+    }
+
+
+    public void asignacionDeCamion(SQLiteDatabase baseDatos, String id_solicitud, String id_camion){
+        ContentValues cv= new ContentValues();
+        cv.put("id_camion" ,id_camion);
+        String[] args= new String[]{id_solicitud};
+        baseDatos.update("solicitud_carga",cv,"id=?",args);
     }
 }
