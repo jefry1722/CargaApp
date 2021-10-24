@@ -37,7 +37,19 @@ public class LoginConductor extends AppCompatActivity {
 
     public void onCambiarContra(View view){
         Intent i = new Intent (this, CambiarPassword.class);
-        i.putExtra(ActualizarDatos.NOMBRE_USE,nombreIntent);
+        i.putExtra(CambiarPassword.NOMBRE_USE,nombreIntent);
+        startActivity(i);
+    }
+
+    public void onConsultaRecoleccionCarga(View view){
+        Intent i = new Intent (this, ConsultaRecoleccionCarga.class);
+        i.putExtra(ConsultaRecoleccionCarga.NOMBRE_USE,nombreIntent);
+        startActivity(i);
+    }
+
+    public void onConsultaEntregaCarga(View view){
+        Intent i = new Intent (this, ConsultaEntregaDeCarga.class);
+        i.putExtra(ConsultaEntregaDeCarga.NOMBRE_USE,nombreIntent);
         startActivity(i);
     }
 

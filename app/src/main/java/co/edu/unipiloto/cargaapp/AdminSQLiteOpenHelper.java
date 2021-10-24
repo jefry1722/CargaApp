@@ -70,7 +70,6 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         cv.put("estado" ,estado);
         String[] args= new String[]{id_propietario_carga};
         baseDatos.update("solicitud_carga",cv,"id=?",args);
-
     }
 
     public void cambiarPassword(SQLiteDatabase baseDatos,String id, String password, String nombre_tabla){
@@ -147,5 +146,53 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         cv.put("id_camion" ,id_camion);
         String[] args= new String[]{id_solicitud};
         baseDatos.update("solicitud_carga",cv,"id=?",args);
+    }
+
+    public Cursor getSolicitudesPorConductor(SQLiteDatabase baseDatos, String id_conductor){
+
+        Cursor cursorCamiones=getCamionesPorConductor(baseDatos,id_conductor);
+        String camionesStr="";
+
+        while(cursorCamiones.moveToNext()){
+            camionesStr+=cursorCamiones.getString(0)+",";
+        }
+        camionesStr=camionesStr.substring(0, camionesStr.length()-1);
+
+        String query="SELECT s.id as _id, 'PLACA: ' ||c.placa || ' CIUDAD REC: ' || s.ciudad_recoleccion || ' FECHA REC: ' || s.fecha_recoleccion as informacion\n" +
+                "FROM `solicitud_carga` s\n" +
+                "JOIN `camion` c ON (c.id=s.id_camion)\n" +
+                "WHERE s.id_camion IN ("+camionesStr+") AND s.estado='Tomado'";
+        return baseDatos.rawQuery(query,null);
+    }
+
+    private Cursor getCamionesPorConductor(SQLiteDatabase baseDatos, String id_conductor){
+        String query="SELECT id\n"+
+                "FROM `camion`"+
+                "WHERE id_conductor="+id_conductor;
+        return baseDatos.rawQuery(query,null);
+    }
+
+    public void recogerCarga(SQLiteDatabase baseDatos,String id, String estado){
+        ContentValues cv= new ContentValues();
+        cv.put("estado" ,estado);
+        String[] args= new String[]{id};
+        baseDatos.update("solicitud_carga",cv,"id=?",args);
+    }
+
+    public Cursor getSolicitudesRecogidasPorConductor(SQLiteDatabase baseDatos, String id_conductor){
+
+        Cursor cursorCamiones=getCamionesPorConductor(baseDatos,id_conductor);
+        String camionesStr="";
+
+        while(cursorCamiones.moveToNext()){
+            camionesStr+=cursorCamiones.getString(0)+",";
+        }
+        camionesStr=camionesStr.substring(0, camionesStr.length()-1);
+
+        String query="SELECT s.id as _id, 'PLACA: ' ||c.placa || ' CIUDAD DEST: ' || s.ciudad_entrega || ' FECHA DEST: ' || s.fecha_entrega as informacion\n" +
+                "FROM `solicitud_carga` s\n" +
+                "JOIN `camion` c ON (c.id=s.id_camion)\n" +
+                "WHERE s.id_camion IN ("+camionesStr+") AND s.estado='Recogido'";
+        return baseDatos.rawQuery(query,null);
     }
 }

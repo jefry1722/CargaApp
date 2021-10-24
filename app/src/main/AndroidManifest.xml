@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CargaApp">
-        <activity android:name=".ConsultarSolicitudesAsignacionCamion"></activity>
+        <activity android:name=".EntregarCarga"></activity>
+        <activity android:name=".ConsultaEntregaDeCarga" />
+        <activity android:name=".ConsultaRecoleccionCarga" />
+        <activity android:name=".RecogerCarga" />
+        <activity android:name=".ConsultarSolicitudesAsignacionCamion" />
         <activity android:name=".ConsultarCamiones" />
         <activity android:name=".AsignarConductor" />
         <activity android:name=".AsignarCamion" />
