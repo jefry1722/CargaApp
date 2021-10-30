@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CargaApp">
-        <activity android:name=".EntregarCarga"></activity>
+        <activity android:name=".VerCargaRecogida"></activity>
+        <activity android:name=".ConsultarCargasAsignadasPorConductor" />
+        <activity android:name=".EntregarCarga" />
         <activity android:name=".ConsultaEntregaDeCarga" />
         <activity android:name=".ConsultaRecoleccionCarga" />
         <activity android:name=".RecogerCarga" />
@@ -46,7 +48,8 @@
             android:exported="true" />
         <activity
             android:name=".LoginConductor"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Cargas Recogidas" />
         <activity
             android:name=".LoginPropCamion"
             android:exported="true"

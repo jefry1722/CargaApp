@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,7 +33,7 @@ public class LoginPropCamion extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         //Adicionar items al appbar
-        getMenuInflater().inflate(R.menu.menu_conductor,menu);
+        getMenuInflater().inflate(R.menu.menu_propietario_camion,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
