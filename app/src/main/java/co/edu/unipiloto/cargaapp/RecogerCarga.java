@@ -37,6 +37,9 @@ public class RecogerCarga extends AppCompatActivity {
         }
         tv_data.setText(data);
         consulta.close();
+
+        Intent intent3 = new Intent(RecogerCarga.this, Email.class);
+        startActivity(intent3);
     }
 
     public void recoleccionDeLaCarga (View view) {

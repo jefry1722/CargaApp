@@ -2,6 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="co.edu.unipiloto.cargaapp">
 
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+    />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CargaApp">
-        <activity android:name=".VerCargaRecogida"></activity>
+        <activity
+            android:name=".Email"
+            android:exported="true" />
+        <activity android:name=".VerCargaRecogida" />
         <activity android:name=".ConsultarCargasAsignadasPorConductor" />
         <activity android:name=".EntregarCarga" />
         <activity android:name=".ConsultaEntregaDeCarga" />

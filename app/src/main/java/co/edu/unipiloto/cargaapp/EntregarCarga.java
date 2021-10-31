@@ -36,6 +36,9 @@ public class EntregarCarga extends AppCompatActivity {
         }
         tv_data.setText(data);
         consulta.close();
+
+        Intent intent3 = new Intent(EntregarCarga.this, Email.class);
+        startActivity(intent3);
     }
 
     public void entregaDeLaCarga (View view) {
