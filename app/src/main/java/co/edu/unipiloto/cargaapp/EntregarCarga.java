@@ -36,12 +36,11 @@ public class EntregarCarga extends AppCompatActivity {
         }
         tv_data.setText(data);
         consulta.close();
-
-        Intent intent3 = new Intent(EntregarCarga.this, Email.class);
-        startActivity(intent3);
     }
 
     public void entregaDeLaCarga (View view) {
+        Intent intent3 = new Intent(EntregarCarga.this, Email.class);
+        startActivity(intent3);
         admin.recogerCarga(baseDatos, tablaText.split(" ")[3],"Entregado");
         Toast.makeText(this, "Se ha generado la entrega, se ha enviado un correo al propietario de la carga", Toast.LENGTH_SHORT).show();
         Intent intent2 = new Intent(EntregarCarga.this, LoginConductor.class);

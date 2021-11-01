@@ -37,12 +37,11 @@ public class RecogerCarga extends AppCompatActivity {
         }
         tv_data.setText(data);
         consulta.close();
-
-        Intent intent3 = new Intent(RecogerCarga.this, Email.class);
-        startActivity(intent3);
     }
 
     public void recoleccionDeLaCarga (View view) {
+        Intent intent3 = new Intent(RecogerCarga.this, Email.class);
+        startActivity(intent3);
         admin.recogerCarga(baseDatos, tablaText.split(" ")[3],"Recogido");
         Toast.makeText(this, "Se ha generado la recolección, se ha enviado un correo al propietario de la carga", Toast.LENGTH_SHORT).show();
         Intent intent2 = new Intent(RecogerCarga.this, LoginConductor.class);

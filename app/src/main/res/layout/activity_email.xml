@@ -35,32 +35,6 @@
         android:text="Complete los datos del correo electrónico" ></TextView>
 
     <EditText
-        android:id="@+id/box1"
-        android:layout_width="200dip"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
-        android:lines="1"
-        android:maxLength="50"
-        android:singleLine="true"
-        android:padding="8dip"
-        android:text=""
-        android:inputType="textEmailAddress"
-        android:scrollHorizontally="false"
-        android:layout_gravity="center"
-        android:gravity="center" ></EditText>
-
-    <TextView
-        android:id="@+id/heading1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:typeface="sans"
-        android:textStyle="normal"
-        android:textSize="20sp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="Email de origen" ></TextView>
-
-    <EditText
         android:id="@+id/box2"
         android:layout_width="200dip"
         android:layout_height="wrap_content"
@@ -148,20 +122,12 @@
         android:layout_marginTop="20dip">
 
         <Button
-            android:id="@+id/butIntent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Send"
-            android:textStyle="normal"
-            android:layout_gravity="center"></Button>
-
-        <Button
             android:id="@+id/butJava"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="JavaMail API"
-            android:textStyle="normal"
-            android:layout_gravity="center"></Button>
+            android:layout_gravity="center"
+            android:text="Enviar"
+            android:textStyle="normal"></Button>
 
     </LinearLayout>
     </LinearLayout>
