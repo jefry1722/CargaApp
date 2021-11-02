@@ -40,13 +40,17 @@ public class RecogerCarga extends AppCompatActivity {
     }
 
     public void recoleccionDeLaCarga (View view) {
-        Intent intent3 = new Intent(RecogerCarga.this, Email.class);
-        startActivity(intent3);
         admin.recogerCarga(baseDatos, tablaText.split(" ")[3],"Recogido");
         Toast.makeText(this, "Se ha generado la recolección, se ha enviado un correo al propietario de la carga", Toast.LENGTH_SHORT).show();
-        Intent intent2 = new Intent(RecogerCarga.this, LoginConductor.class);
-        intent2.putExtra(LoginConductor.NOMBRE_USE, tablaText.split(" ")[0]+" "+tablaText.split(" ")[1]+" "+tablaText.split(" ")[2]);
-        startActivity(intent2);
+        Cursor consulta2=admin.getCorreo(baseDatos,tablaText.split(" ")[3]);
+        String correo="";
+        while(consulta2.moveToNext()){
+            correo=consulta2.getString(0);
+        }
+
+        Intent intent3 = new Intent(RecogerCarga.this, Email.class);
+        intent3.putExtra(LoginConductor.NOMBRE_USE, tablaText.split(" ")[0]+" "+tablaText.split(" ")[1]+" "+tablaText.split(" ")[2]+" "+correo+" Pedido-Recogido"+" Su-pedido-ha-sido-recogido-con-éxito");
+        startActivity(intent3);
     }
 
     protected void onDestroy() {

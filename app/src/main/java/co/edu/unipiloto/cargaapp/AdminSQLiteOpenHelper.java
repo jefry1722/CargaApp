@@ -195,4 +195,12 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
                 "WHERE s.id_camion IN ("+camionesStr+") AND s.estado='Recogido'";
         return baseDatos.rawQuery(query,null);
     }
+
+    public Cursor getCorreo(SQLiteDatabase baseDatos, String id){
+        String query="SELECT p.correo\n" +
+                "FROM `solicitud_carga` s\n" +
+                "JOIN `propietario_de_carga` p ON (p.id=s.id_propietario_carga)\n" +
+                "WHERE s.id ="+id;
+        return baseDatos.rawQuery(query,null);
+    }
 }

@@ -9,13 +9,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.ProgressDialog;
 import android.text.Html;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 
 
-import android.os.Bundle;
 import android.widget.Toast;
 
 import java.util.Properties;
@@ -33,46 +28,45 @@ public class Email extends AppCompatActivity {
 
     private static String emailAccount = "cargaappupc@gmail.com";
     private static String emailPassword = "prueba01";
-    private EditText etTo, etSubject, etMessage;
+    public static String NOMBRE_USE="";
+    private String tablaText="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email);
+        Intent intent = getIntent();
+        tablaText = intent.getStringExtra(NOMBRE_USE);
 
-        etTo = findViewById(R.id.box2);
-        etSubject = findViewById(R.id.box3);
-        etMessage = findViewById(R.id.box4);
-        Button btnJava = (Button) findViewById(R.id.butJava);
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.host", "smtp.gmail.com");
 
-        btnJava.setOnClickListener(new View.OnClickListener() {
+        Session session = Session.getInstance(props, new Authenticator() {
             @Override
-            public void onClick(View v) {
-                Properties props = new Properties();
-                props.put("mail.smtp.auth", "true");
-                props.put("mail.smtp.starttls.enable", "true");
-                props.put("mail.smtp.port", "587");
-                props.put("mail.smtp.host", "smtp.gmail.com");
-
-                Session session = Session.getInstance(props, new Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(emailAccount, emailPassword);
-                    }
-                });
-                try {
-                    Message message = new MimeMessage(session);
-                    message.setFrom(new InternetAddress(emailAccount));
-                    message.setRecipients(Message.RecipientType.TO,
-                            InternetAddress.parse(etTo.getText().toString().trim()));
-                    message.setSubject(etSubject.getText().toString().trim());
-                    message.setText(etMessage.getText().toString().trim());
-                    new SendMail().execute(message);
-                } catch (MessagingException e) {
-                    e.printStackTrace();
-                }
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(emailAccount, emailPassword);
             }
         });
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(emailAccount));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(tablaText.split(" ")[3]));
+            message.setSubject(tablaText.split(" ")[4].replace("-"," "));
+            message.setText(tablaText.split(" ")[5].replace("-"," "));
+            new SendMail().execute(message);
+
+            Intent intent2 = new Intent(Email.this, LoginConductor.class);
+            intent2.putExtra(LoginConductor.NOMBRE_USE, tablaText.split(" ")[0]+" "+tablaText.split(" ")[1]+" "+tablaText.split(" ")[2]);
+            startActivity(intent2);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     private class SendMail extends AsyncTask<Message,String,String> {
@@ -107,9 +101,6 @@ public class Email extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
-                        etTo.setText("");
-                        etSubject.setText("");
-                        etMessage.setText("");
                     }
                 });
                 builder.show();
