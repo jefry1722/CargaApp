@@ -99,4 +99,17 @@
         app:layout_constraintBottom_toTopOf="@+id/btnRecogerCarga"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reportar ubicación"
+        android:onClick="onReportar"
+        tools:layout_editor_absoluteX="104dp"
+        tools:layout_editor_absoluteY="508dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnEntregarCarga"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

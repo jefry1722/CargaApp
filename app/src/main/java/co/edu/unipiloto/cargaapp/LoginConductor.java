@@ -79,4 +79,9 @@ public class LoginConductor extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void onReportar(View view){
+        Intent i = new Intent(this, Gps.class);
+        startActivity(i);
+    }
+
 }
