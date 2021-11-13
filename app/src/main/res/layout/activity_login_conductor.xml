@@ -17,11 +17,11 @@
         android:id="@+id/btnRecogerCarga"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
-        android:text="Recoger Carga"
         android:onClick="onConsultaRecoleccionCarga"
+        android:text="Recoger Carga"
         app:layout_constraintBottom_toTopOf="@+id/buttonCerrarSesionConductor"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -93,23 +93,44 @@
         android:id="@+id/btnEntregarCarga"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
-        android:text="Entregar Carga"
         android:onClick="onConsultaEntregaCarga"
+        android:text="Entregar Carga"
         app:layout_constraintBottom_toTopOf="@+id/btnRecogerCarga"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reportar ubicación"
+        android:layout_marginBottom="10dp"
         android:onClick="onReportar"
-        tools:layout_editor_absoluteX="104dp"
-        tools:layout_editor_absoluteY="508dp"
+        android:text="Reportar ubicación"
         app:layout_constraintBottom_toTopOf="@+id/btnEntregarCarga"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnRutaRecolección"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="RUTA RECOLECCIÓN"
+        android:onClick="onConsultaRecoleccionCargaGPS"
+        app:layout_constraintBottom_toTopOf="@+id/buttonCerrarSesionConductor"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="10dp"
+        android:text="RUTA ENTREGA"
+        android:onClick="onConsultaEntregaCargaGPS"
+        app:layout_constraintBottom_toTopOf="@+id/btnRutaRecolección"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -62,7 +62,6 @@ public class ConsultarCargasAsignadasPorConductor extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        consulta.close();
         baseDatos.close();
         admin.close();
     }

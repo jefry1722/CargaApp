@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.text.HtmlCompat;
 
@@ -66,7 +65,7 @@ public class Gps extends AppCompatActivity {
         });
     }
 
-    private void getLocation() {
+    public void getLocation() {
         if (ActivityCompat.checkSelfPermission(Gps.this
                 , Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             location_view.setText("Entrando a getLocation");
@@ -92,7 +91,7 @@ public class Gps extends AppCompatActivity {
                                     textView5.setText("Línea: " + addresses.get(0).getAddressLine(0));
                                 } catch (IOException e) {
                                     e.printStackTrace();
-                                    location_view.setText("Fallo");
+                                    location_view.setText(e+"");
                                 }
                             }
                         }

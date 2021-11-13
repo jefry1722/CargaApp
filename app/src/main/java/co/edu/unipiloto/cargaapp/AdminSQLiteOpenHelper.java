@@ -16,6 +16,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     private final String SQL_COND_CAMION="create table conductor_de_camion(id text primary key, nombres text, apellidos text, fecha_nacimiento date, celular text, password text, correo text);";
     private final String SQL_CAMION="create table camion(id integer primary key autoincrement, placa text, marca text, modelo text, capacidad integer, color text, kilometros integer, id_propietario text, id_conductor text);";
     private final String SQL_SOLICITUD_CARGA="create table solicitud_carga(id integer primary key autoincrement, fecha_recoleccion date, hora_recoleccion text, direccion_recoleccion text, ciudad_recoleccion text, fecha_entrega date, hora_entrega text, direccion_entrega text, ciudad_entrega text, id_propietario_carga text, id_propietario_camion text, estado text, contenido text, peso text, id_camion text);";
+    private final String SQL_UBICACION="create table ubicacion(id integer primary key autoincrement, latitud text, longitud text, fecha date, id_solicitud);";
 
     public AdminSQLiteOpenHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -28,6 +29,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         baseDatos.execSQL(SQL_COND_CAMION);
         baseDatos.execSQL(SQL_CAMION);
         baseDatos.execSQL(SQL_SOLICITUD_CARGA);
+        baseDatos.execSQL(SQL_UBICACION);
     }
 
     @Override
@@ -37,6 +39,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         baseDatos.execSQL("DROP TABLE IF EXISTS '" + "conductor_de_camion"+ "'");
         baseDatos.execSQL("DROP TABLE IF EXISTS '" + "camion"+ "'");
         baseDatos.execSQL("DROP TABLE IF EXISTS '" + "solicitud_carga"+ "'");
+        baseDatos.execSQL("DROP TABLE IF EXISTS '" + "ubicacion"+ "'");
         onCreate(baseDatos);
     }
 
@@ -200,6 +203,20 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         String query="SELECT p.correo\n" +
                 "FROM `solicitud_carga` s\n" +
                 "JOIN `propietario_de_carga` p ON (p.id=s.id_propietario_carga)\n" +
+                "WHERE s.id ="+id;
+        return baseDatos.rawQuery(query,null);
+    }
+
+    public Cursor getLugaresRecoger(SQLiteDatabase baseDatos, String id){
+        String query="SELECT s.id as _id, s.direccion_recoleccion,s.ciudad_recoleccion\n" +
+                "FROM `solicitud_carga` s\n" +
+                "WHERE s.id ="+id;
+        return baseDatos.rawQuery(query,null);
+    }
+
+    public Cursor getLugaresEntrega(SQLiteDatabase baseDatos, String id){
+        String query="SELECT s.id as _id, s.direccion_entrega,s.ciudad_entrega \n" +
+                "FROM `solicitud_carga` s\n" +
                 "WHERE s.id ="+id;
         return baseDatos.rawQuery(query,null);
     }

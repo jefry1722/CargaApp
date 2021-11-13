@@ -73,9 +73,21 @@ public class LoginConductor extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void onConsultaRecoleccionCargaGPS(View view){
+        Intent i = new Intent (this, ConsultaRecoleccionCargaGPS.class);
+        i.putExtra(ConsultaRecoleccionCargaGPS.NOMBRE_USE,nombreIntent);
+        startActivity(i);
+    }
+
     public void onConsultaEntregaCarga(View view){
         Intent i = new Intent (this, ConsultaEntregaDeCarga.class);
         i.putExtra(ConsultaEntregaDeCarga.NOMBRE_USE,nombreIntent);
+        startActivity(i);
+    }
+
+    public void onConsultaEntregaCargaGPS(View view){
+        Intent i = new Intent (this, ConsultaEntregaDeCargaGPS.class);
+        i.putExtra(ConsultaEntregaDeCargaGPS.NOMBRE_USE,nombreIntent);
         startActivity(i);
     }
 

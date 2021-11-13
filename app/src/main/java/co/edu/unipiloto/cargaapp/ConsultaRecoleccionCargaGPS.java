@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,7 +13,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
-public class ConsultaEntregaDeCarga extends AppCompatActivity {
+public class ConsultaRecoleccionCargaGPS extends AppCompatActivity {
 
     public static String NOMBRE_USE="";
     private String tablaText="";
@@ -23,7 +24,7 @@ public class ConsultaEntregaDeCarga extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_consulta_entrega_de_carga);
+        setContentView(R.layout.activity_consulta_recoleccion_carga_gps);
 
         Intent intent2 = getIntent();
         tablaText = intent2.getStringExtra(NOMBRE_USE);
@@ -31,23 +32,31 @@ public class ConsultaEntregaDeCarga extends AppCompatActivity {
         try {
             admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
             baseDatos = admin.getReadableDatabase();
-            consulta=admin.getSolicitudesRecogidasPorConductor(baseDatos,tablaText.split(" ")[1]);
+            consulta=admin.getSolicitudesPorConductor(baseDatos,tablaText.split(" ")[1]);
 
             SimpleCursorAdapter listAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1,
                     consulta,new String[]{"informacion"},new int[]{android.R.id.text1},0);
 
-            ListView listSolicitudesCarga=(ListView)findViewById(R.id.list_consultar_solicitudes_recogidas_por_camion);
+            ListView listSolicitudesCarga=(ListView)findViewById(R.id.list_consultar_solicitudes_por_camionGPS);
             listSolicitudesCarga.setAdapter(listAdapter);
 
             AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener(){
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    //Pass the drink the user clicks on to DrinkActivity
+                    Cursor consultaLugar=admin.getLugaresRecoger(baseDatos,id+"");
+                    String lugarStr="";
 
-                    Intent intent= new Intent(ConsultaEntregaDeCarga.this,EntregarCarga.class);
-                    intent.putExtra(EntregarCarga.NOMBRE_USE, tablaText+" "+id);
+                    while(consultaLugar.moveToNext()){
+                        lugarStr+=consultaLugar.getString(1)+" "+consultaLugar.getString(2);
+                    }
+
+                    consultaLugar.close();
+
+                    Uri uri=Uri.parse("https://maps.google.com/maps?daddr="+lugarStr);
+
+                    Intent intent=new Intent(Intent.ACTION_VIEW,uri);
+                    intent.setPackage("com.google.android.apps.maps");
                     startActivity(intent);
-
                 }
             };
 
