@@ -2,8 +2,11 @@ package co.edu.unipiloto.cargaapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -13,6 +16,7 @@ import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -35,12 +39,20 @@ public class Gps extends AppCompatActivity {
     Button btLocation;
     TextView textView1, textView2, textView3, textView4, textView5, location_view;
     FusedLocationProviderClient fusedLocationProviderClient;
+    public static String NOMBRE_USE="";
+    private String tablaText="";
+    private AdminSQLiteOpenHelper admin;
+    private SQLiteDatabase baseDatos;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gps);
         Intent intent = getIntent();
+        tablaText = intent.getStringExtra(NOMBRE_USE);
+        admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+
         btLocation = findViewById(R.id.bt_location);
         textView1 = findViewById(R.id.text_view1);
         textView2 = findViewById(R.id.text_view2);
@@ -50,22 +62,21 @@ public class Gps extends AppCompatActivity {
         location_view = findViewById(R.id.location_view);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        btLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                location_view.setText("Check permission");
-                if (ActivityCompat.checkSelfPermission(Gps.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    location_view.setText("when permission granted");
-                    getLocation();
-                } else {
-                    location_view.setText("when permission denied");
-                    ActivityCompat.requestPermissions(Gps.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-                }
-            }
-        });
+        location_view.setText("Check permission");
+        if (ActivityCompat.checkSelfPermission(Gps.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            location_view.setText("when permission granted");
+            getLocation();
+        } else {
+            location_view.setText("when permission denied");
+            ActivityCompat.requestPermissions(Gps.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+        }
+
+
+        getLocation();
     }
 
     public void getLocation() {
+        baseDatos = admin.getWritableDatabase();
         if (ActivityCompat.checkSelfPermission(Gps.this
                 , Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             location_view.setText("Entrando a getLocation");
@@ -89,6 +100,18 @@ public class Gps extends AppCompatActivity {
                                     textView3.setText("País: " + addresses.get(0).getCountryName());
                                     textView4.setText("Localidad: " + addresses.get(0).getLocality());
                                     textView5.setText("Línea: " + addresses.get(0).getAddressLine(0));
+
+                                    ContentValues registro = new ContentValues();
+                                    registro.put("latitud", (double) addresses.get(0).getLatitude()+"");
+                                    registro.put("longitud", (double) addresses.get(0).getLongitude()+"");
+                                    registro.put("linea", addresses.get(0).getAddressLine(0)+"");
+                                    registro.put("id_solicitud", tablaText.split(" ")[3]);
+
+                                    baseDatos.insert("ubicacion", null, registro);
+
+                                    Intent intent2 = new Intent(Gps.this, LoginConductor.class);
+                                    intent2.putExtra(LoginConductor.NOMBRE_USE, tablaText.split(" ")[0]+" "+tablaText.split(" ")[1]+" "+tablaText.split(" ")[2]);
+                                    startActivity(intent2);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                     location_view.setText(e+"");

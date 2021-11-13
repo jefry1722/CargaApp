@@ -21,7 +21,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CargaApp">
-        <activity android:name=".ConsultaEntregaDeCargaGPS"></activity>
+        <service
+            android:name=".NotificacionUbicacion"
+            android:exported="false"></service>
+
+        <activity android:name=".ConsultarUbicacionCargasRecogidas" />
+        <activity android:name=".ConsultaEntregaDeCargaGPS" />
         <activity android:name=".ConsultaRecoleccionCargaGPS" />
         <activity
             android:name=".Gps"

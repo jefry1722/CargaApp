@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
@@ -35,6 +37,26 @@ public class ConsultarEstadoCargas extends AppCompatActivity {
                     consulta,new String[]{"informacion"},new int[]{android.R.id.text1},0);
             ListView listEstadoCarga=(ListView)findViewById(R.id.list_estado_cargas);
             listEstadoCarga.setAdapter(listAdapter);
+
+            AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener(){
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    //Pass the drink the user clicks on to DrinkActivity
+
+                    Cursor consultaUbicacion=admin.getUltimaUbicacion(baseDatos,id+"");
+                    String ubicacionStr="";
+                    while(consultaUbicacion.moveToNext()){
+                        ubicacionStr+="Longitud:"+consultaUbicacion.getString(1)+"_Latitud:"+consultaUbicacion.getString(0)+"_Linea:_"+consultaUbicacion.getString(2);
+                    }
+
+                    Intent intent= new Intent(ConsultarEstadoCargas.this, NotificacionUbicacion.class);
+                    intent.putExtra(NotificacionUbicacion.EXTRA_MESSAGE, tablaText+" "+id+" "+ubicacionStr);
+                    startActivity(intent);
+
+                }
+            };
+
+            listEstadoCarga.setOnItemClickListener(itemClickListener);
 
         }catch (Exception e){
             Toast.makeText(this, "Error: " + e, Toast.LENGTH_SHORT).show();

@@ -92,7 +92,8 @@ public class LoginConductor extends AppCompatActivity {
     }
 
     public void onReportar(View view){
-        Intent i = new Intent(this, Gps.class);
+        Intent i = new Intent(this, ConsultarUbicacionCargasRecogidas.class);
+        i.putExtra(ConsultarUbicacionCargasRecogidas.NOMBRE_USE,nombreIntent);
         startActivity(i);
     }
 
