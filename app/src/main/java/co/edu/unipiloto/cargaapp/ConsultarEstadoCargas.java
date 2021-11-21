@@ -44,13 +44,17 @@ public class ConsultarEstadoCargas extends AppCompatActivity {
                     //Pass the drink the user clicks on to DrinkActivity
 
                     Cursor consultaUbicacion=admin.getUltimaUbicacion(baseDatos,id+"");
-                    String ubicacionStr="";
-                    while(consultaUbicacion.moveToNext()){
-                        ubicacionStr+="Longitud:"+consultaUbicacion.getString(1)+"_Latitud:"+consultaUbicacion.getString(0)+"_Linea:_"+consultaUbicacion.getString(2);
+                    String ubicacionStr="_";
+
+                    if(consultaUbicacion.getCount()>0) {
+                        ubicacionStr="";
+                        while (consultaUbicacion.moveToNext()) {
+                            ubicacionStr += "Longitud:" + consultaUbicacion.getString(1) + "\n_Latitud:" + consultaUbicacion.getString(0) + "\n_Linea:_" + consultaUbicacion.getString(2);
+                        }
                     }
 
-                    Intent intent= new Intent(ConsultarEstadoCargas.this, NotificacionUbicacion.class);
-                    intent.putExtra(NotificacionUbicacion.EXTRA_MESSAGE, tablaText+" "+id+" "+ubicacionStr);
+                    Intent intent= new Intent(ConsultarEstadoCargas.this, UltimaUbicacion.class);
+                    intent.putExtra(UltimaUbicacion.NOMBRE_USE, tablaText+" "+id+" "+ubicacionStr);
                     startActivity(intent);
 
                 }

@@ -37,7 +37,7 @@ public class NotificacionUbicacion extends IntentService {
 
         //Create an action
         Intent actionIntent=new Intent(this,ConsultarEstadoCargas.class);
-        actionIntent.putExtra(ConsultarEstadoCargas.NOMBRE_USE, tablaText.split(" ")[0]+" "+tablaText.split(" ")[1]+" "+tablaText.split(" ")[2]);
+        //actionIntent.putExtra(ConsultarEstadoCargas.NOMBRE_USE, tablaText.split(" ")[0]+" "+tablaText.split(" ")[1]+" "+tablaText.split(" ")[2]);
         PendingIntent actionPendingIntent= PendingIntent.getActivity(this,0,actionIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 
         builder.setContentIntent(actionPendingIntent);
